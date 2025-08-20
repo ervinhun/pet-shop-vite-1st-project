@@ -10,7 +10,7 @@ export default function Home() {
     return (
         <div className="flex flex-col min-h-screen bg-gray-100 items-center">
             {/* Hero Section */}
-            <div className="flex flex-wrap items-center justify-center bg-gray-100 text-black text-6xl py-12 cursor-grab">
+            <div className="flex flex-wrap items-center justify-center bg-gray-100 text-black text-6xl py-12">
                 <img src="/src/img/dog.png" alt="dog icon" width="100px" height="100px"/>
                 PetShop - Ervin
             </div>
@@ -21,7 +21,7 @@ export default function Home() {
                 {pets.map((pet) => (
                         <div
                             key={pet.id}
-                            className={`card card-side shadow-md m-4 w-3/5 ${
+                            className={`card card-side bg-blue-500 shadow-md m-4 w-3/5 cursor-pointer ${
                                 pet.sold ? "opacity-50" : ""
                             }`}
                             onClick={() => navigate(`/pet/${pet.id}`)}
