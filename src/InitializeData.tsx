@@ -10,7 +10,5 @@ export default function InitializeData() {
             .then(response => response.json())
             .then(data => setAllPets(data))
             .catch(error => console.error('Error fetching data:', error))
-    }, [
-        setAllPets
-    ])
+    }, []);
 }

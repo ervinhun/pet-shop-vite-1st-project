@@ -3,7 +3,6 @@ import './index.css'
 import InitializeData from "./InitializeData.tsx";
 import {createBrowserRouter, RouterProvider, type RouteObject} from "react-router-dom";
 import PetDetail from "./pages/PetDetail.tsx";
-import NewPet from "./pages/NewPet.tsx";
 
 const myRoutes: RouteObject[] = [
     {
@@ -12,11 +11,7 @@ const myRoutes: RouteObject[] = [
     },
     {
         path: "/pet/:id",
-        element: <PetDetail />
-    },
-    {
-        path: "new",
-        element: <NewPet />
+        element: <PetDetail/>
     }
 ]
 
