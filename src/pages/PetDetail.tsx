@@ -97,7 +97,7 @@ export default function PetDetail() {
                     >
                         🗑
                     </button>
-                    {//!pet.sold && (
+                    {!pet.sold && (
                         <button
                             onClick={() => handleSell(pet.id)}
                             className="text-green-700 hover:text-green-900 text-xl cursor-pointer"
@@ -105,7 +105,7 @@ export default function PetDetail() {
                         >
                             💸
                         </button>
-                    //)
+                    )
                     }
                     <button onClick={() => navigate("/")}
                             className="text-blue-600 hover:text-blue-800 text-xl cursor-pointer"
