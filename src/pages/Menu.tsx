@@ -2,7 +2,6 @@ import {ShowPetAtom, SortingAtom} from "../Atom.ts";
 import {useAtom} from "jotai";
 import {useRef} from "react";
 import AddPetForm from "./Add.tsx";
-import {useNavigate} from "react-router-dom";
 
 export default function Menu() {
 
@@ -10,7 +9,6 @@ export default function Menu() {
     const [sort, setSort] = useAtom(SortingAtom);
     const detailsRef = useRef<HTMLDetailsElement>(null);
     const detailsRefSort = useRef<HTMLDetailsElement>(null);
-    const navigate = useNavigate();
 
     function closeMenu() {
         if (detailsRef.current) {

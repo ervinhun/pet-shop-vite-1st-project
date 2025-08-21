@@ -22,7 +22,7 @@ export default function AddPetModal() {
                 console.log(e);
                 if (e instanceof Response) {
                     e.json().then(problem => {
-                        toast.err(problem.title);
+                        toast.error(problem.title);
                     })
                 }
             });

@@ -25,15 +25,20 @@ export default function PetDetail() {
             })
             .catch(error => {
                 console.error("Error deleting pet:", error)
-                error.json().then(problem => {
-                    toast.error(problem.title);
-                })
+                if (error instanceof Response) {
+                    error.json().then(problem => {
+                        toast.error(problem.title);
+                    })
+                }
             });
     }
 
     function handleSell(id: string) {
         console.log("Sell pet with id:", id);
-        updatePet(id, pet?.name, pet?.breed, pet?.imgurl, true)
+        if(pet === undefined) return (
+            <div className="flex items-center justify-center h-screen">Pet not found</div>
+        )
+        updatePet(id, pet.name, pet.breed, pet.imgurl, true)
             .then(response => {
                 if (response.status === 200) {
                     sellPet(id);
@@ -43,9 +48,11 @@ export default function PetDetail() {
             })
             .catch(error => {
                 console.error("Error deleting pet:", error)
-                error.json().then(problem => {
-                    toast.error(problem.title);
-                })
+                if (error instanceof Response) {
+                    error.json().then(problem => {
+                        toast.error(problem.title);
+                    })
+                }
             });
     }
 
