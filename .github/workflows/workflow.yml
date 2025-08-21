@@ -36,4 +36,5 @@ jobs:
         run: docker build . --file Dockerfile --tag my-image:latest
 
       - name: Run tests inside Docker image
-        run: docker run --rm my-image:latest npm test
+        run: docker run --rm my-image:latest sh -c "npm ci && npm test"
+
