@@ -38,7 +38,7 @@ export default function PetDetail() {
 
     function handleSell(id: string) {
         console.log("Sell pet with id:", id);
-        if(pet === undefined) return (
+        if (pet === undefined) return (
             <div className="flex items-center justify-center h-screen">Pet not found</div>
         )
         updatePet(id, pet.name, pet.breed, pet.imgurl, true)
@@ -82,14 +82,17 @@ export default function PetDetail() {
 
                 <div className="absolute top-2 right-2 flex space-x-2">
 
-                    <button
-                        onClick={() => setIsModalOpen(true)}
-                        className="hover:text-blue-800 text-xl cursor-pointer"
-                        title="Edit"
-                    >
-                        ✎
-                    </button>
-                    <AddPetForm initialData={pet} isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+                    {!pet.sold && (
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="hover:text-blue-800 text-xl cursor-pointer"
+                            title="Edit"
+                        >
+                            ✎
+                        </button>
+                    )
+                    }
+                    <AddPetForm initialData={pet} isOpen={isModalOpen} setIsOpen={setIsModalOpen}/>
                     <button
                         onClick={() => handleDelete(pet.id)}
                         className="hover:text-red-800 text-xl cursor-pointer"

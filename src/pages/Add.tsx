@@ -69,7 +69,7 @@ export default function AddPetModal({initialData, isOpen, setIsOpen}: AddPetModa
             {isOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white rounded-lg p-6 shadow-lg w-full max-w-md">
-                        <h2 className="text-2xl font-bold mb-4">Add a New Pet</h2>
+                        <h2 className="text-2xl font-bold mb-4">{initialData!= null ? "Edit pet" : "Add a New Pet"}</h2>
                         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
                             <input
                                 type="text"
