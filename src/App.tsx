@@ -12,11 +12,11 @@ const myRoutes: RouteObject[] = [
     },
     {
         path: "/pet/:id",
-        element: <PetDetail />
+        element: <PetDetail/>
     },
     {
         path: "new",
-        element: <NewPet />
+        element: <NewPet/>
     }
 ]
 
