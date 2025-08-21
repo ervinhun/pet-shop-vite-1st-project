@@ -76,7 +76,6 @@ export default function PetDetail() {
 
     return (
         <div className="flex items-center justify-center h-screen bg-gray-800">
-            <AddPetForm/>
 
             <div className="relative flex flex-row bg-blue-400 text-black p-6 rounded-2xl w-3/4 max-w-2xl shadow-lg">
 
