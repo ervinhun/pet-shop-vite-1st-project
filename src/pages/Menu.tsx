@@ -32,13 +32,11 @@ export default function Menu() {
     }
 
 
-
     return (
         <div className="navbar shadow-sm">
             <div className="flex-none bg-none align-middle text-black">
-                <button className="btn btn-ghost normal-case text-xl"
-                onClick={() => navigate("/new")
-                }>Add pet</button>
+
+                <AddPetForm/>
                 <ul className="menu menu-horizontal px-1 space-x-2 ml-auto">
                     <li>
                         <details ref={detailsRef}>

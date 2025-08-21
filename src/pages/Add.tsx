@@ -2,7 +2,8 @@ import { useState } from "react";
 import {createPet} from "../dto/PetDto.ts";
 import toast from "react-hot-toast";
 
-export default function AddPetForm() {
+export default function AddPetModal() {
+    const [isOpen, setIsOpen] = useState(false);
     const [name, setName] = useState("");
     const [breed, setBreed] = useState("");
     const [imgurl, setImgurl] = useState("");
@@ -13,7 +14,7 @@ export default function AddPetForm() {
         createPet(name, breed, imgurl).then(response => {
             if (response.status === 200) {
                 toast.success("Pet created successfully");
-                console.log(response);
+                console.log("✅ Success: ", response.status);
                 window.location.reload();
             }
         })
@@ -25,38 +26,61 @@ export default function AddPetForm() {
                     })
                 }
             });
-        // Clear form
         setName("");
         setBreed("");
         setImgurl("");
+        setIsOpen(false); // close modal after submit
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 bg-white p-6 rounded-lg shadow-md w-full max-w-lg">
-            <input
-                type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="input input-bordered w-full"
-            />
-            <input
-                type="text"
-                placeholder="Breed"
-                value={breed}
-                onChange={(e) => setBreed(e.target.value)}
-                className="input input-bordered w-full"
-            />
-            <input
-                type="text"
-                placeholder="Image URL"
-                value={imgurl}
-                onChange={(e) => setImgurl(e.target.value)}
-                className="input input-bordered w-full"
-            />
-            <button type="submit" className="btn btn-primary">
+        <>
+            {/* Trigger Button */}
+            <button className="btn btn-ghost normal-case text-xl" onClick={() => setIsOpen(true)}>
                 Add Pet
             </button>
-        </form>
+
+            {/* Modal */}
+            {isOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg p-6 shadow-lg w-full max-w-md">
+                        <h2 className="text-2xl font-bold mb-4">Add a New Pet</h2>
+                        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+                            <input
+                                type="text"
+                                placeholder="Name"
+                                value={name}
+                                maxLength={50}
+                                onChange={(e) => setName(e.target.value)}
+                                className="input input-bordered w-full bg-gray-200 text-black"
+                            />
+                            <input
+                                type="text"
+                                placeholder="Breed"
+                                value={breed}
+                                maxLength={50}
+                                onChange={(e) => setBreed(e.target.value)}
+                                className="input input-bordered w-full bg-gray-200 text-black"
+                            />
+                            <input
+                                type="text"
+                                placeholder="Image URL"
+                                value={imgurl}
+                                maxLength={255}
+                                onChange={(e) => setImgurl(e.target.value)}
+                                className="input input-bordered w-full bg-gray-200 text-black"
+                            />
+                            <div className="flex justify-end space-x-2">
+                                <button type="button" className="btn btn-outline" onClick={() => setIsOpen(false)}>
+                                    Cancel
+                                </button>
+                                <button type="submit" className="btn btn-primary">
+                                    Add Pet
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }
