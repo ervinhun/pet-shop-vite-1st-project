@@ -54,11 +54,11 @@ export default function Home() {
 
             {/* Content Section */}
             <div
-                className="flex-1 flex flex-col items-center bg-blue-400 text-black p-6 rounded-2xl w-5/6 shadow-lg mt-6">
+                className="flex-1 flex flex-col items-center bg-blue-400 text-black p-6 rounded-2xl w-full shadow-lg mt-6">
                 {filteredPets.map((pet) => (
                     <div
                         key={pet.id}
-                        className={`card card-side bg-blue-500 shadow-md m-4 w-3/5 cursor-pointer ${
+                        className={`card card-side bg-blue-500 shadow-md m-4 w-full cursor-pointer ${
                             pet.sold ? "opacity-50" : ""
                         }`}
                         onClick={() => navigate(`/pet/${pet.id}`)}
