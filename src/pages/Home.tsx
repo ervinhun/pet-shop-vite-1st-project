@@ -31,7 +31,6 @@ export default function Home() {
 
     return (
         <div className="flex flex-col min-h-screen bg-gray-100 items-center">
-            {/* Hero Section */}
             <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-5xl bg-gray-100 px-6 py-12 rounded-lg shadow-md">
                 {/* Logo + Title */}
                 <div className="flex items-center space-x-4 mb-6 md:mb-0">

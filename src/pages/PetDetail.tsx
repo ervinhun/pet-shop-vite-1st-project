@@ -3,6 +3,8 @@ import {useAtom} from "jotai";
 import {PetAtom} from "../Atom.ts";
 import {deletePet, updatePet} from "../dto/PetDto.ts";
 import toast from "react-hot-toast";
+import AddPetForm from "./Add.tsx";
+import {useState} from "react";
 
 export default function PetDetail() {
     const {id} = useParams();
@@ -10,6 +12,7 @@ export default function PetDetail() {
     const pet = allPets.find(p => p.id === id);
     console.log("id:" + id);
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
 
     function handleDelete(id: string) {
@@ -73,14 +76,24 @@ export default function PetDetail() {
 
     return (
         <div className="flex items-center justify-center h-screen bg-gray-800">
+            <AddPetForm/>
+
             <div className="relative flex flex-row bg-blue-400 text-black p-6 rounded-2xl w-3/4 max-w-2xl shadow-lg">
 
 
                 <div className="absolute top-2 right-2 flex space-x-2">
 
                     <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="hover:text-blue-800 text-xl cursor-pointer"
+                        title="Edit"
+                    >
+                        ✎
+                    </button>
+                    <AddPetForm initialData={pet} isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+                    <button
                         onClick={() => handleDelete(pet.id)}
-                        className="text-red-600 hover:text-red-800 text-xl cursor-pointer"
+                        className="hover:text-red-800 text-xl cursor-pointer"
                         title="Delete"
                     >
                         🗑

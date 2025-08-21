@@ -1,6 +1,6 @@
 import {ShowPetAtom, SortingAtom} from "../Atom.ts";
 import {useAtom} from "jotai";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import AddPetForm from "./Add.tsx";
 
 export default function Menu() {
@@ -9,6 +9,7 @@ export default function Menu() {
     const [sort, setSort] = useAtom(SortingAtom);
     const detailsRef = useRef<HTMLDetailsElement>(null);
     const detailsRefSort = useRef<HTMLDetailsElement>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     function closeMenu() {
         if (detailsRef.current) {
@@ -33,8 +34,11 @@ export default function Menu() {
     return (
         <div className="navbar shadow-sm">
             <div className="flex-none bg-none align-middle text-black">
-
-                <AddPetForm/>
+                {/* Trigger Button */}
+                <button className="btn btn-ghost normal-case text-xl" onClick={() => setIsModalOpen(true)}>
+                    Add Pet
+                </button>
+                <AddPetForm isOpen={isModalOpen} setIsOpen={setIsModalOpen}/>
                 <ul className="menu menu-horizontal px-1 space-x-2 ml-auto">
                     <li>
                         <details ref={detailsRef}>

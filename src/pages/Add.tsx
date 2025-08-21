@@ -1,43 +1,69 @@
-import { useState } from "react";
-import {createPet} from "../dto/PetDto.ts";
+import {useState, useEffect} from "react";
+import {createPet, updatePet} from "../dto/PetDto.ts";
 import toast from "react-hot-toast";
 
-export default function AddPetModal() {
-    const [isOpen, setIsOpen] = useState(false);
+interface AddPetModalProps {
+    initialData?: any;
+    isOpen: boolean;
+    setIsOpen: (open: boolean) => void;
+}
+
+export default function AddPetModal({initialData, isOpen, setIsOpen}: AddPetModalProps) {
     const [name, setName] = useState("");
     const [breed, setBreed] = useState("");
     const [imgurl, setImgurl] = useState("");
 
+    console.log(JSON.stringify(initialData));
+    useEffect(() => {
+        if (initialData) {
+            setName(initialData.name!);
+            setBreed(initialData.breed!);
+            setImgurl(initialData.imgurl!);
+        }
+    }, [initialData]);
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!name || !breed || !imgurl) return alert("Please fill in all fields");
-        createPet(name, breed, imgurl).then(response => {
-            if (response.status === 200) {
-                toast.success("Pet created successfully");
+        if (initialData) {
+            updatePet(initialData.id!, name, breed, imgurl).then(response => {
+                toast.success("Pet updated successfully");
                 console.log("✅ Success: ", response.status);
                 window.location.reload();
-            }
-        })
-            .catch(e => {
-                console.log(e);
-                if (e instanceof Response) {
-                    e.json().then(problem => {
-                        toast.error(problem.title);
-                    })
+            })
+                .catch(e => {
+                    console.log(e);
+                    if (e instanceof Response) {
+                        e.json().then(problem => {
+                            toast.error(problem.title);
+                        })
+                    }
+                });
+        } else
+            createPet(name, breed, imgurl).then(response => {
+                if (response.status === 200) {
+                    toast.success("Pet created successfully");
+                    console.log("✅ Success: ", response.status);
+                    window.location.reload();
                 }
-            });
+            })
+                .catch(e => {
+                    console.log(e);
+                    if (e instanceof Response) {
+                        e.json().then(problem => {
+                            toast.error(problem.title);
+                        })
+                    }
+                });
         setName("");
         setBreed("");
         setImgurl("");
-        setIsOpen(false); // close modal after submit
+        setIsOpen(false);
     };
 
     return (
         <>
-            {/* Trigger Button */}
-            <button className="btn btn-ghost normal-case text-xl" onClick={() => setIsOpen(true)}>
-                Add Pet
-            </button>
+
 
             {/* Modal */}
             {isOpen && (
@@ -74,7 +100,7 @@ export default function AddPetModal() {
                                     Cancel
                                 </button>
                                 <button type="submit" className="btn btn-primary">
-                                    Add Pet
+                                    {initialData!= null ? "Update" : "Add Pet"}
                                 </button>
                             </div>
                         </form>
